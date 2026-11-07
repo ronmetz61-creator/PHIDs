@@ -60,37 +60,99 @@ For privacy, local database files and detailed hunting-location records are excl
 
 ## Planned Development
 
-### Phase 2 — Wildlife Observation Management
+### Phase 2 — Wildlife Observation Database
 
-- Add new wildlife sightings through a user interface.
-- Edit and delete existing records.
-- Search and filter observations.
-- Track individual animals across multiple sightings.
-- Support trail camera observations and photographs.
+- Expand the SQLite database to support multiple observation categories.
+- Record deer, coyotes, bears, turkeys, and other wildlife.
+- Record rubs, scrapes, tracks, scat, bedding areas, food sources, water sources, and game trails.
+- Record hunter activity and hunting pressure observations.
+- Automatically capture GPS coordinates when available.
+- Distinguish confirmed wildlife sightings from discovered evidence.
+- Separate observation timestamps from estimated animal activity dates.
+- Track observation confidence and location accuracy.
+- Add, edit, delete, search, and filter observations.
+- Preserve historical observations and existing database records.
 
-### Phase 3 — Environmental Intelligence
+### Phase 3 — PHIDS Mobile Field Recorder
 
-- Integrate weather information.
-- Record wind direction and temperature.
-- Incorporate moon phases.
-- Analyze wildlife activity against environmental conditions.
-- Develop wildlife movement visualizations.
+- Develop an iPhone-compatible field recording interface.
+- Create a PHIDS home-screen shortcut.
+- Automatically capture GPS coordinates, date, and time.
+- Support quick selection of observation categories.
+- Allow photographs and field notes.
+- Develop secure synchronization with the PHIDS database.
+- Support offline observation recording and later synchronization.
+- Develop a mobile-friendly interface using Progressive Web App technology.
 
-### Phase 4 — Hunting Management
+### Phase 4 — Trail Camera Intelligence
 
-- Equipment and gear inventory.
-- Hunting location management.
-- Trail camera management.
-- Hunting activity logs.
-- Data-driven hunting recommendations.
+- Register trail cameras with geographic coordinates.
+- Support Tactacam REVEAL, Stealth Cam, and additional manufacturers.
+- Import trail camera photographs and available metadata.
+- Associate photographs with camera locations and capture timestamps.
+- Support camera clock corrections and relocation history.
+- Retrieve historical weather corresponding to photograph timestamps.
+- Group related photographs into wildlife detection events.
+- Investigate automated wildlife identification using computer vision.
+- Identify potentially empty triggers and monitor camera performance.
+- Investigate supported methods for automatic cellular camera synchronization.
 
-### Phase 5 — Security and Advanced Analytics
+### Phase 5 — Environmental Intelligence
 
-- User authentication.
-- Secure storage of sensitive location information.
-- Data validation and input protection.
-- Database backup and recovery.
-- Wildlife movement analysis and visualization.
+- Integrate current and historical weather information.
+- Record temperature, wind speed, wind direction, humidity, precipitation, and barometric pressure.
+- Incorporate sunrise, sunset, moon phase, and elevation data.
+- Track changes in environmental conditions over time.
+- Distinguish discovery weather from conditions associated with confirmed wildlife activity.
+- Compare wildlife observations against historical environmental conditions.
+- Develop configurable alerts for significant weather changes.
+
+### Phase 6 — Geographic Wildlife Intelligence
+
+- Develop interactive maps for Windows and mobile devices.
+- Display satellite imagery and topographic information.
+- Integrate available public hunting land boundaries.
+- Support Pennsylvania, New York, and additional hunting locations.
+- Organize observations by property and hunting area.
+- Display different map symbols for wildlife, deer sign, habitat, equipment, and hunter activity.
+- Support geographic points, trails, and defined areas.
+- Develop geographic filters and historical activity visualizations.
+- Protect sensitive hunting locations and private property information.
+
+### Phase 7 — Hunting Intelligence
+
+- Develop a dedicated Hunting tab.
+- Support hunting modes for deer, coyotes, turkey, bear, and other species.
+- Record complete hunting sessions, including unsuccessful hunts.
+- Compare current conditions with historical wildlife observations.
+- Develop a historical timeline and Rewind feature.
+- Analyze potential relationships between hunting pressure and wildlife movement.
+- Develop wildlife activity heat maps.
+- Provide evidence-based observations with confidence indicators.
+- Develop configurable hunting condition notifications.
+- Support historical analysis without presenting correlations as guaranteed predictions.
+
+### Phase 8 — Security, Reliability, and Advanced Analytics
+
+- Implement user authentication and access controls.
+- Develop a secure Python API for mobile and desktop synchronization.
+- Protect sensitive geographic information.
+- Implement database backup and recovery.
+- Develop data validation and duplicate detection.
+- Expand wildlife movement and environmental analytics.
+- Evaluate database scalability as observation volume increases.
+- Develop secure deployment options using private network connectivity.
+- Continue improving application reliability and performance.
+
+### Long-Term Development
+
+- Automated trail camera data ingestion where supported.
+- Advanced wildlife image classification.
+- Potential individual-animal identification with confidence tracking.
+- Historical movement pattern analysis.
+- Improved offline mapping and field navigation.
+- Cross-platform access through Windows and iPhone.
+- Additional hunting and equipment management capabilities.
 
 ---
 
