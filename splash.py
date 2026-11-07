@@ -56,4 +56,7 @@ tk.Label(
     bg="#101810"
 ).pack(pady=30)
 
+# Display splash screen for 3 seconds, then close
+root.after(3000, root.destroy)
+
 root.mainloop()
