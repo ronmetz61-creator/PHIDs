@@ -1,9 +1,132 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import sqlite3
 from pathlib import Path
 
 DB_PATH = Path(__file__).resolve().parent / "phids.db"
+
+def add_observation():
+    """Open the graphical wildlife observation entry form."""
+
+    window = tk.Toplevel(root)
+    window.title("PHIDS - Add Wildlife Observation")
+    window.geometry("600x650")
+    window.configure(bg="#14281D")
+
+    heading = tk.Label(
+        window,
+        text="ADD WILDLIFE OBSERVATION",
+        font=("Arial", 20, "bold"),
+        fg="#D4AF37",
+        bg="#14281D"
+    )
+    heading.pack(pady=20)
+
+    fields = [
+        "Nickname",
+        "Species",
+        "Sex",
+        "Date (YYYY-MM-DD)",
+        "Time",
+        "Location",
+        "County",
+        "State",
+        "Notes"
+    ]
+
+    entries = {}
+
+    for field in fields:
+        label = tk.Label(
+            window,
+            text=field,
+            font=("Arial", 11),
+            fg="white",
+            bg="#14281D"
+        )
+        label.pack()
+
+        entry = tk.Entry(
+            window,
+            font=("Arial", 11),
+            width=40
+        )
+        entry.pack(pady=(0, 8))
+        entries[field] = entry
+
+    def save_observation():
+        """Save the observation to the PHIDS database."""
+
+        nickname = entries["Nickname"].get().strip()
+        species = entries["Species"].get().strip()
+        sex = entries["Sex"].get().strip()
+        date = entries["Date (YYYY-MM-DD)"].get().strip()
+        time = entries["Time"].get().strip()
+        location = entries["Location"].get().strip()
+        county = entries["County"].get().strip()
+        state = entries["State"].get().strip()
+        notes = entries["Notes"].get().strip()
+
+        # Check required fields
+        if not species or not date:
+            messagebox.showwarning(
+                "Missing Information",
+                "Species and Date are required."
+            )
+            return
+
+        # Save to SQLite
+        with sqlite3.connect(DB_PATH) as connection:
+            cursor = connection.cursor()
+
+            cursor.execute("""
+                INSERT INTO sightings (
+                    nickname,
+                    species,
+                    sex,
+                    sighting_date,
+                    sighting_time,
+                    location,
+                    county,
+                    state,
+                    notes
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                nickname,
+                species,
+                sex,
+                date,
+                time,
+                location,
+                county,
+                state,
+                notes
+            ))
+
+            connection.commit()
+
+        messagebox.showinfo(
+            "PHIDS",
+            "Wildlife observation saved successfully!"
+        )
+
+        window.destroy()
+
+    # Save button for the observation form
+    save_button = tk.Button(
+        window,
+        text="SAVE OBSERVATION",
+        font=("Arial", 12, "bold"),
+        bg="#D4AF37",
+        fg="black",
+        activebackground="#FF8C00",
+        width=25,
+        height=2,
+        command=save_observation
+    )
+    save_button.pack(pady=15)
+
 
 def view_observations():
     """Display saved wildlife observations in a graphical window."""
@@ -74,6 +197,15 @@ def view_observations():
     for observation in observations:
         table.insert("", "end", values=observation)
 
+
+import subprocess
+import sys
+
+subprocess.run(
+    [sys.executable, str(Path(__file__).resolve().parent / "splash.py")],
+    check=True
+)
+
 # PHIDS Main Application Window
 root = tk.Tk()
 root.title("PHIDS - Portable Hunting Intelligence & Data System")
@@ -136,7 +268,7 @@ for index, button_text in enumerate(buttons):
         activeforeground="black",
         relief="flat",
         state="normal" if index < 2 else "disabled",
-        command=view_observations if index == 1 else None
+        command=add_observation if index == 0 else view_observations if index == 1 else None
     )
     button.grid(
         row=index // 2,
