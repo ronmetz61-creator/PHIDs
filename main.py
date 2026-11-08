@@ -6,6 +6,47 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).resolve().parent / "phids.db"
 
+def add_sighting():
+    """Collect a wildlife observation and save it to SQLite."""
+
+    print("\n========== ADD WILDLIFE OBSERVATION ==========")
+
+    species = input("Species (Deer, Coyote, Bear, etc.): ").strip()
+
+    if not species:
+        print("Species is required. Observation not saved.")
+        return
+
+    nickname = input("Nickname (optional): ").strip()
+    sex = input("Sex (Male, Female, Unknown): ").strip()
+    sighting_date = input("Date (YYYY-MM-DD): ").strip()
+    sighting_time = input("Time (HH:MM AM/PM): ").strip()
+    location = input("Location: ").strip()
+    county = input("County: ").strip()
+    state = input("State: ").strip()
+    notes = input("Notes: ").strip()
+
+    if not sighting_date:
+        print("Date is required. Observation not saved.")
+        return
+
+    with sqlite3.connect(DB_PATH) as connection:
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            INSERT INTO sightings (
+                nickname, species, sex, sighting_date,
+                sighting_time, location, county, state, notes
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            nickname, species, sex, sighting_date,
+            sighting_time, location, county, state, notes
+        ))
+
+        connection.commit()
+
+    print("\nWildlife observation saved successfully!")
 
 def view_sightings():
     """Display wildlife sightings stored in SQLite."""
@@ -38,15 +79,19 @@ def view_sightings():
 def main():
     while True:
         print("\n========== PHIDS ==========")
-        print("1. View Wildlife Sightings")
-        print("2. Exit")
+        print("1. Add Wildlife Observation")
+        print("2. View Wildlife Observations")
+        print("3. Exit")
 
         choice = input("\nSelect an option: ").strip()
 
         if choice == "1":
-            view_sightings()
+            add_sighting()
 
         elif choice == "2":
+            view_sightings()
+
+        elif choice == "3":
             print("\nClosing PHIDS. Happy hunting!")
             break
 
